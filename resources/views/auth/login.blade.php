@@ -33,7 +33,12 @@
                         style="border-radius: 0.75rem;"
                     >
                 </div>
-
+                <div class="mt-3 text-end">
+                    <a href="{{ route('password.request') }}" class="text-decoration-none" style="color: #e83e8c;">
+                        Forgot your password?
+                    </a>
+                </div>
+                
                 <div class="d-grid mt-4">
                     <button 
                         type="submit" 
