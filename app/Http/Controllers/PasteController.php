@@ -46,14 +46,28 @@ class PasteController extends Controller
 
     public function index()
     {
-        $pastes = Paste::where('user_id', auth()->id())
+        $pastes = Paste::where('visibility', 'public')
+                       ->where(function ($query) {
+                           $query->whereNull('expires_at')
+                                 ->orWhere('expires_at', '>', now());
+                       })
                        ->latest()
                        ->get();
     
         return view('pastes.index', compact('pastes'));
     }
+    
     public function show(Paste $paste)
 {
+    $user = auth()->user();
+
+    if ($paste->visibility === 'private' && (!$user || $user->id !== $paste->user_id)) {
+        abort(403, 'Unauthorized access to private paste.');
+    }
+
+    if ($paste->password && !session("paste_access_{$paste->id}")) {
+        return view('pastes.password', compact('paste'));
+    }
     return view('pastes.show', compact('paste'));
 }
 }
