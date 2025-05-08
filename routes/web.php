@@ -28,7 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pastes/create', [PasteController::class, 'create'])->name('pastes.create');
 
     Route::post('/pastes', [PasteController::class, 'store'])->name('pastes.store');
-    
+    Route::get('/pastes', [PasteController::class, 'index'])->name('pastes.index');
+
 });
 
 Route::get('/pastes/{paste}', [PasteController::class, 'show'])->name('pastes.show');

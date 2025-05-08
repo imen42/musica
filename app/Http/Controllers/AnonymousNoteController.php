@@ -22,8 +22,10 @@ class AnonymousNoteController extends Controller
 
         $encrypted = Crypt::encryptString($request->note);
         $hash = bin2hex(random_bytes(8));
-        Session::put("anon_note_{$hash}", $encrypted);
-
+        Session::put("anon_note_{$hash}", [
+            'note' => $encrypted,
+            'created_at' => now(), 
+        ]);
         return redirect()->route('notes.anonymous.show', $hash);
     }
 
@@ -32,8 +34,17 @@ class AnonymousNoteController extends Controller
         if (!Session::has("anon_note_{$hash}")) {
             abort(404);
         }
+    
+        $noteData = Session::get("anon_note_{$hash}");
+    
+        if (now()->diffInMinutes($noteData['created_at']) > 30) {
+            abort(404);
+        }
 
-        $note = Crypt::decryptString(Session::get("anon_note_{$hash}"));
-        return view('notes.anonymous.show', compact('note'));
+        $note = Crypt::decryptString($noteData['note']);
+        $link = route('notes.anonymous.show', $hash);
+
+    
+        return view('notes.anonymous.show', compact('note', 'link'));
     }
 }

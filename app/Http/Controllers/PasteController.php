@@ -44,18 +44,37 @@ class PasteController extends Controller
         return redirect()->route('pastes.index')->with('success', 'Paste created successfully!');
     }
 
-    public function index()
-    {
-        $pastes = Paste::where('visibility', 'public')
-                       ->where(function ($query) {
-                           $query->whereNull('expires_at')
-                                 ->orWhere('expires_at', '>', now());
-                       })
-                       ->latest()
-                       ->get();
-    
-        return view('pastes.index', compact('pastes'));
+    public function index(Request $request)
+{
+    $query = Paste::query()
+        ->where('visibility', 'public')
+        ->where(function ($q) {
+            $q->whereNull('expires_at')
+              ->orWhere('expires_at', '>', now());
+        });
+
+    if ($request->filled('search')) {
+        $search = $request->input('search');
+
+        $query->where(function ($q) use ($search) {
+            $q->where('title', 'like', "%{$search}%")
+              ->orWhere('content', 'like', "%{$search}%")
+              ->orWhere('tags', 'like', "%{$search}%");
+        });
     }
+
+    if ($request->filled('created_at')) {
+        $query->whereDate('created_at', $request->input('created_at'));
+    }
+
+    if ($request->filled('expires_at')) {
+        $query->whereDate('expires_at', $request->input('expires_at'));
+    }
+
+    $pastes = $query->latest()->paginate(10);
+
+    return view('pastes.index', compact('pastes'));
+}
     
     public function show(Paste $paste)
 {
