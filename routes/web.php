@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/pastes/{paste}', [PasteController::class, 'show'])->name('pastes.show');
 Route::get('/pastes', [PasteController::class, 'index'])->name('pastes.index');
-//routes of  notes for anonymous 
+//routes of notes for anonymous 
 Route::get('/notes/create', [AnonymousNoteController::class, 'create'])->name('notes.anonymous.create');
 Route::post('/notes', [AnonymousNoteController::class, 'store'])->name('notes.anonymous.store');
 Route::get('/notes/view/{hash}', [AnonymousNoteController::class, 'show'])->name('notes.anonymous.show');
