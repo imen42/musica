@@ -22,13 +22,14 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 
 
 // routes fro past 
+Route::get('/p/{slug}', [PasteController::class, 'showBySlug'])->name('pastes.slug');
+Route::get('/pastes', [PasteController::class, 'index'])->name('pastes.index');
 Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 Route::middleware('auth')->group(function () {
     Route::get('/pastes/create', [PasteController::class, 'create'])->name('pastes.create');
 
     Route::post('/pastes', [PasteController::class, 'store'])->name('pastes.store');
-    Route::get('/pastes', [PasteController::class, 'index'])->name('pastes.index');
 
 });
 

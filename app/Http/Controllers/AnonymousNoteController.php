@@ -17,7 +17,6 @@ class AnonymousNoteController extends Controller
     {
         $request->validate([
             'note' => 'required|string|max:10000',
-            'g-recaptcha-response' => 'required|captcha'
         ]);
 
         $encrypted = Crypt::encryptString($request->note);
