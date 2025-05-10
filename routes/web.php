@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pastes/create', [PasteController::class, 'create'])->name('pastes.create');
 
     Route::post('/pastes', [PasteController::class, 'store'])->name('pastes.store');
+    Route::post('/pastes/{paste}/comments', [PasteController::class, 'storeComment'])->name('pastes.comment');
+
 
 });
 

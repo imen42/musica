@@ -15,7 +15,7 @@
             {!! NoCaptcha::renderJs() !!}
             {!! NoCaptcha::display() !!} --}}
 
-            <button type="submit" class="btn btn-primary mt-3">Generate Link</button>
+            <button type="submit" class="btn btn-girly">Generate Link</button>
         </form>
     </div>
 </x-layout>

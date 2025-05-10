@@ -48,7 +48,7 @@
                                 <input type="file" class="form-control" id="attachment" name="attachment">
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100">Create Paste</button>
+                            <button type="submit" class="btn btn-girly">Create Paste</button>
                         </form>
                     </div>
                 </div>

@@ -29,5 +29,9 @@ class Paste extends Model
     {
         return $this->expires_at && $this->expires_at <= now();
     }
-
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->latest();
+    }
+    
 }

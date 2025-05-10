@@ -39,6 +39,8 @@
 <body>
 
     <nav class="navbar d-flex justify-content-end gap-3 mx-5 mt-3">
+        <a href="{{ route('home') }}" class="btn btn-girly">Home</a>
+
         <a href="{{ route('Register.page') }}" class="btn btn-girly">Register</a>
         <a href="{{ route('Login.page') }}" class="btn btn-girly">Login</a>
         <form action="{{ route('logout') }}" method="POST" class="d-inline">

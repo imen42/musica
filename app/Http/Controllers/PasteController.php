@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Paste;
 use Illuminate\Support\Facades\Storage; 
+use Illuminate\Support\Facades\Hash;
+
 
 class PasteController extends Controller
 {
@@ -46,12 +48,14 @@ class PasteController extends Controller
 
     public function index(Request $request)
 {
+    
     $query = Paste::query()
         ->where('visibility', 'public')
         ->where(function ($q) {
             $q->whereNull('expires_at')
               ->orWhere('expires_at', '>', now());
         });
+
 
         $query->where(function ($q) use ($request) {
             if ($request->filled('search')) {
@@ -80,12 +84,18 @@ public function show(Paste $paste)
 {
     $user = auth()->user();
 
-    // 🔐 Private paste: only owner can view
+    // Block access to private pastes unless creator
     if ($paste->visibility === 'private' && (!$user || $user->id !== $paste->user_id)) {
         abort(403, 'Unauthorized access to private paste.');
     }
 
-    if ($paste->password) {
+    // Unlisted pastes are only accessible by link (we assume route uses ID or slug)
+    if ($paste->visibility === 'unlisted' && request()->routeIs('pastes.index')) {
+        abort(403, 'Unlisted pastes are not listed.');
+    }
+
+    // Password protection only applies to non-public
+    if ($paste->password && in_array($paste->visibility, ['private', 'unlisted'])) {
         $access = session("paste_access_{$paste->id}");
         $accessTime = session("paste_access_time_{$paste->id}");
 
@@ -95,11 +105,6 @@ public function show(Paste $paste)
             return redirect()->route('pastes.verifyPassword', $paste)->withErrors(['password' => 'Access expired. Please re-enter the password.']);
         }
 
-        if ($access) {
-            session()->forget("paste_access_{$paste->id}");
-            session()->forget("paste_access_time_{$paste->id}");
-        }
-
         if (!$access) {
             return view('pastes.password', compact('paste'));
         }
@@ -107,6 +112,7 @@ public function show(Paste $paste)
 
     return view('pastes.show', compact('paste'));
 }
+
 
 public function verifyPassword(Request $request, Paste $paste)
 {
@@ -134,6 +140,19 @@ public function showBySlug($slug)
     }
 
     return view('pastes.show', compact('paste'));
+}
+public function storeComment(Request $request, Paste $paste)
+{
+    $request->validate([
+        'content' => 'required|string|max:1000',
+    ]);
+
+    $paste->comments()->create([
+        'user_id' => auth()->id(),
+        'content' => $request->content,
+    ]);
+
+    return back()->with('success', 'Comment added!');
 }
 
 }
