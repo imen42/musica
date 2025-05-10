@@ -84,17 +84,14 @@ public function show(Paste $paste)
 {
     $user = auth()->user();
 
-    // Block access to private pastes unless creator
     if ($paste->visibility === 'private' && (!$user || $user->id !== $paste->user_id)) {
         abort(403, 'Unauthorized access to private paste.');
     }
 
-    // Unlisted pastes are only accessible by link (we assume route uses ID or slug)
     if ($paste->visibility === 'unlisted' && request()->routeIs('pastes.index')) {
         abort(403, 'Unlisted pastes are not listed.');
     }
 
-    // Password protection only applies to non-public
     if ($paste->password && in_array($paste->visibility, ['private', 'unlisted'])) {
         $access = session("paste_access_{$paste->id}");
         $accessTime = session("paste_access_time_{$paste->id}");
@@ -154,5 +151,28 @@ public function storeComment(Request $request, Paste $paste)
 
     return back()->with('success', 'Comment added!');
 }
+
+public function vote(Request $request, Paste $paste)
+{
+    $request->validate([
+        'vote' => 'required|in:up,down', 
+    ]);
+
+    $existingVote = $paste->votes()->where('user_id', auth()->id())->first();
+
+    if ($existingVote) {
+        $existingVote->update([
+            'vote' => $request->vote,
+        ]);
+    } else {
+        $paste->votes()->create([
+            'user_id' => auth()->id(),
+            'vote' => $request->vote,
+        ]);
+    }
+
+    return back()->with('success', 'Vote registered!');
+}
+
 
 }

@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/pastes', [PasteController::class, 'store'])->name('pastes.store');
     Route::post('/pastes/{paste}/comments', [PasteController::class, 'storeComment'])->name('pastes.comment');
+    Route::post('pastes/{paste}/vote', [PasteController::class, 'vote'])->name('pastes.vote');
+
 
 
 });

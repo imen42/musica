@@ -38,7 +38,31 @@
                             <p class="text-muted">No comments yet.</p>
                         @endforelse
                     </div>
-                </div>
+                    <div class="card mt-4 shadow-sm border-0">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            
+                            <form action="{{ route('pastes.vote', $paste) }}" method="POST" class="d-flex gap-2 mb-0">
+                                @csrf
+                                <button type="submit" name="vote" value="up" class="btn btn-girly">
+                                    <i class="bi bi-hand-thumbs-up me-1"></i> Like
+                                </button>
+                                <button type="submit" name="vote" value="down" class="btn btn-girly">
+                                    <i class="bi bi-hand-thumbs-down me-1"></i> Dislike
+                                </button>
+                            </form>
+                    
+                            <div class="text-end">
+                                <span class="btn btn-girly">
+                                    👍 {{ $paste->votes->where('vote', 'up')->count() }}
+                                </span>
+                                <span class="btn btn-girly">
+                                    👎 {{ $paste->votes->where('vote', 'down')->count() }}
+                                </span>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
 
                 @auth
                     <div class="card shadow-sm rounded">
