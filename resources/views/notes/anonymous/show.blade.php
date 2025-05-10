@@ -11,4 +11,5 @@
             <input type="text" class="form-control" readonly value="{{ $link }}">
         </div>
     </div>
+    
 </x-layout>

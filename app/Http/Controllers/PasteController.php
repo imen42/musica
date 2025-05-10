@@ -49,13 +49,25 @@ class PasteController extends Controller
     public function index(Request $request)
 {
     
-    $query = Paste::query()
-        ->where('visibility', 'public')
-        ->where(function ($q) {
-            $q->whereNull('expires_at')
-              ->orWhere('expires_at', '>', now());
-        });
+    $query = Paste::query();
 
+    if (auth()->check()) {
+        // Logged-in users should see their own pastes (both private and public)
+        $query->where(function ($q) {
+            $q->where('user_id', auth()->id())  // Show the logged-in user's pastes
+              ->orWhere('visibility', 'public') // Show public pastes for all users
+              ->orWhere('visibility', 'unlisted'); // Show unlisted pastes to logged-in users
+        });
+    } else {
+        // Guests should only see public pastes
+        $query->where('visibility', 'public');
+    }
+
+    // Only show non-expired or non-expiring pastes
+    $query->where(function ($q) {
+        $q->whereNull('expires_at')
+          ->orWhere('expires_at', '>', now());
+    });
 
         $query->where(function ($q) use ($request) {
             if ($request->filled('search')) {
@@ -88,24 +100,10 @@ public function show(Paste $paste)
         abort(403, 'Unauthorized access to private paste.');
     }
 
-    if ($paste->visibility === 'unlisted' && request()->routeIs('pastes.index')) {
+    if ($paste->visibility === 'unlisted' && !$user) {
         abort(403, 'Unlisted pastes are not listed.');
     }
 
-    if ($paste->password && in_array($paste->visibility, ['private', 'unlisted'])) {
-        $access = session("paste_access_{$paste->id}");
-        $accessTime = session("paste_access_time_{$paste->id}");
-
-        if ($accessTime && now()->diffInMinutes($accessTime) > 15) {
-            session()->forget("paste_access_{$paste->id}");
-            session()->forget("paste_access_time_{$paste->id}");
-            return redirect()->route('pastes.verifyPassword', $paste)->withErrors(['password' => 'Access expired. Please re-enter the password.']);
-        }
-
-        if (!$access) {
-            return view('pastes.password', compact('paste'));
-        }
-    }
 
     return view('pastes.show', compact('paste'));
 }

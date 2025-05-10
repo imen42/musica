@@ -11,9 +11,7 @@
             </div>
 <p class="text-muted">Note: Your note will be available only for a limited time (30 minutes) and cannot be saved.</p>
 
- {{-- <div class="g-recaptcha" data-sitekey="{{ env('6LcDizErAAAAANz6TJRiiLyYqz5D_6x3BYdM6ABd') }}"></div>
-            {!! NoCaptcha::renderJs() !!}
-            {!! NoCaptcha::display() !!} --}}
+
 
             <button type="submit" class="btn btn-girly">Generate Link</button>
         </form>
