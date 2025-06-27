@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💗 My Cute Laravel App</title>
+    <title>🎼 AlgoMuse</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -36,18 +37,25 @@
         }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar d-flex justify-content-end gap-3 mx-5 mt-3">
         <a href="{{ route('home') }}" class="btn btn-girly">Home</a>
 
-        <a href="{{ route('Register.page') }}" class="btn btn-girly">Register</a>
-        <a href="{{ route('Login.page') }}" class="btn btn-girly">Login</a>
-        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-            @csrf
-            <button type="submit" class="btn btn-girly">Logout</button>
-        </form>
-            </nav>
+        @auth
+            <a href="{{ route('musicxml.upload') }}" class="btn btn-girly">Analyze MusicXML</a>
+            <a href="{{ route('melody.generate') }}" class="btn btn-girly">Generate Melody</a>
+
+            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-girly">Logout</button>
+            </form>
+        @else
+            <a href="{{ route('Register.page') }}" class="btn btn-girly">Register</a>
+            <a href="{{ route('Login.page') }}" class="btn btn-girly">Login</a>
+        @endauth
+    </nav>
 
     <main class="py-4">
         {{ $slot }}

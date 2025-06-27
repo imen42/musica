@@ -1,4 +1,3 @@
-<x-layout>
     <div class="container mt-5">
         <h2>Create Anonymous Note</h2>
 
@@ -16,4 +15,3 @@
             <button type="submit" class="btn btn-girly">Generate Link</button>
         </form>
     </div>
-</x-layout>

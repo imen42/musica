@@ -7,7 +7,8 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\PasteController;
 use App\Http\Controllers\AnonymousNoteController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\MusicXmlController;
+use App\Http\Controllers\MelodyGeneratorController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
     //register && login && logout
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pastes', [PasteController::class, 'store'])->name('pastes.store');
     Route::post('/pastes/{paste}/comments', [PasteController::class, 'storeComment'])->name('pastes.comment');
     Route::post('pastes/{paste}/vote', [PasteController::class, 'vote'])->name('pastes.vote');
+    Route::get('/melody/generate', [MelodyGeneratorController::class, 'generateMelody'])->name('melody.generate');
 
 
 
@@ -43,3 +45,24 @@ Route::get('/pastes', [PasteController::class, 'index'])->name('pastes.index');
 Route::get('/notes/create', [AnonymousNoteController::class, 'create'])->name('notes.anonymous.create');
 Route::post('/notes', [AnonymousNoteController::class, 'store'])->name('notes.anonymous.store');
 Route::get('/notes/view/{hash}', [AnonymousNoteController::class, 'show'])->name('notes.anonymous.show');
+
+
+
+
+
+
+
+
+Route::get('/musicxml/upload', [MusicXmlController::class, 'upload'])->name('musicxml.upload');
+Route::post('/musicxml/analyze', [MusicXmlController::class, 'analyze'])->name('musicxml.analyze');
+
+Route::get('/melody/{id}/export', [MelodyGeneratorController::class, 'exportToMusicXML'])
+    ->middleware('auth')
+    ->name('melody.export');
+    Route::post('/melody/compare', [MelodyGeneratorController::class, 'compareMelodiesFromRequest'])
+    ->middleware('auth')
+    ->name('melody.compare');
+
+Route::get('/melody/compare/{id1}/{id2}', [MelodyGeneratorController::class, 'compareMelodies'])
+    ->middleware('auth')
+    ->name('melody.compare.ids');
