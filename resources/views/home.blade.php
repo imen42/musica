@@ -44,81 +44,133 @@
 
     <style>
         body {
-            background: linear-gradient(135deg, #d63384, #6f42c1);
+            background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+    
+        h1.display-4 {
+            color: #1db954;
+            font-weight: 700;
+        }
+    
+        .lead {
+            color: #aaa;
+        }
+    
         .container {
-            max-width: 600px;
-            background: rgba(0,0,0,0.4);
-            padding: 2rem;
+            max-width: 800px;
+            background: rgba(28, 28, 28, 0.95);
+            padding: 2.5rem;
             border-radius: 1rem;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
         }
+    
+        .row > .col-md-6 {
+            background: #121212;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease;
+        }
+    
+        .row > .col-md-6:hover {
+            transform: translateY(-4px);
+        }
+    
+        .row h4 {
+            color: #1db954;
+            margin-bottom: 0.5rem;
+        }
+    
+        .btn-girly {
+            background-color: #1db954;
+            color: #fff;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+        }
+    
+        .btn-girly:hover {
+            background-color: #17a94a;
+            box-shadow: 0 0 10px #1db954aa;
+            color: #fff;
+        }
+    
         .melody-list {
             max-height: 350px;
             overflow-y: auto;
-            background: rgba(255,255,255,0.1);
+            background: rgba(40, 40, 40, 0.85);
             border-radius: 0.5rem;
-            padding: 0.5rem 1rem;
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+            padding: 1rem;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
         }
+    
         .melody-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 8px;
-            cursor: pointer;
+            padding: 12px 10px;
             border-radius: 0.5rem;
+            cursor: pointer;
             transition: background-color 0.2s ease;
-            user-select: none;
+            background-color: #181818;
+            border: 1px solid #2a2a2a;
+            margin-bottom: 0.5rem;
         }
+    
         .melody-item:hover {
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: #1f1f1f;
         }
+    
         .melody-item input[type="checkbox"] {
             width: 20px;
             height: 20px;
             cursor: pointer;
+            accent-color: #1db954;
         }
+    
         .melody-info {
             flex-grow: 1;
             font-size: 1rem;
             line-height: 1.3;
         }
+    
         .notes-preview {
             font-family: monospace;
             font-size: 0.85rem;
-            color: #ddd;
+            color: #ccc;
             margin-top: 3px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .btn-girly {
-            background-color: #e83e8c;
-            color: white;
-        }
-        .btn-girly:hover {
-            background-color: #c32f74;
-            color: white;
-        }
+    
         #compare-btn {
-            background-color: #6f42c1;
+            background-color: #1db954;
             border: none;
             color: white;
             padding: 0.6rem 1.5rem;
             font-size: 1.1rem;
             border-radius: 0.5rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
+    
+        #compare-btn:hover:enabled {
+            background-color: #17a94a;
+            box-shadow: 0 0 10px #1db954aa;
+        }
+    
         #compare-btn:disabled {
-            background-color: rgba(111, 66, 193, 0.5);
+            background-color: rgba(29, 185, 84, 0.4);
             cursor: not-allowed;
         }
     </style>
+    
 
     <script>
         function validateSelection() {

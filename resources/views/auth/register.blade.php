@@ -1,11 +1,24 @@
-
 <x-layout>
-    <div class="d-flex justify-content-center align-items-center vh-100" style="background: linear-gradient(to right, #ffe0f0, #ffc1e3);">
-        <div class="p-5 shadow-lg" style="max-width: 420px; width: 100%; background-color: white; border-radius: 2rem;">
-            <h2 class="text-center mb-4" style="color: #e83e8c; font-family: 'Poppins', sans-serif;">Create Account 💕</h2>
+    <div class="container mt-5 d-flex justify-content-center" style="background: linear-gradient(135deg, #0f0f0f, #1c1c1c); min-height: 100vh;">
+        <div class="card p-4 shadow" style="
+            max-width: 400px;
+            width: 100%;
+            background-color: #181818;
+            border-radius: 1rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            color: #e0e0e0;
+        ">
+            <h2 class="text-center mb-4" style="color: #1db954; font-weight: 700;">Create Account 💕</h2>
 
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" style="
+                    background-color: #8b0000;
+                    color: #fff;
+                    border-radius: 0.5rem;
+                    border: none;
+                    padding: 0.75rem 1rem;
+                    margin-bottom: 1rem;
+                ">
                     <ul class="mb-0">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -17,35 +30,106 @@
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required style="border-radius: 1rem;">
-                    <label for="name">Full Name</label>
+                <div class="mb-3">
+                    <label for="name" class="form-label" style="color: #ccc; font-weight: 500;">Full Name</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="name" 
+                        name="name" 
+                        placeholder="Full Name" 
+                        required 
+                        style="
+                            background-color: #121212;
+                            border: 1px solid #333;
+                            color: #e0e0e0;
+                            border-radius: 0.75rem;
+                            padding: 0.5rem 1rem;
+                        "
+                    >
                 </div>
 
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required style="border-radius: 1rem;">
-                    <label for="email">Email</label>
+                <div class="mb-3">
+                    <label for="email" class="form-label" style="color: #ccc; font-weight: 500;">Email</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="email" 
+                        name="email" 
+                        placeholder="Email" 
+                        required 
+                        style="
+                            background-color: #121212;
+                            border: 1px solid #333;
+                            color: #e0e0e0;
+                            border-radius: 0.75rem;
+                            padding: 0.5rem 1rem;
+                        "
+                    >
                 </div>
 
-                <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required style="border-radius: 1rem;">
-                    <label for="password">Password</label>
+                <div class="mb-3">
+                    <label for="password" class="form-label" style="color: #ccc; font-weight: 500;">Password</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Password" 
+                        required 
+                        style="
+                            background-color: #121212;
+                            border: 1px solid #333;
+                            color: #e0e0e0;
+                            border-radius: 0.75rem;
+                            padding: 0.5rem 1rem;
+                        "
+                    >
                 </div>
 
-                <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password" required style="border-radius: 1rem;">
-                    <label for="password_confirmation">Confirm Password</label>
+                <div class="mb-3">
+                    <label for="password_confirmation" class="form-label" style="color: #ccc; font-weight: 500;">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password_confirmation" 
+                        name="password_confirmation" 
+                        placeholder="Confirm Password" 
+                        required 
+                        style="
+                            background-color: #121212;
+                            border: 1px solid #333;
+                            color: #e0e0e0;
+                            border-radius: 0.75rem;
+                            padding: 0.5rem 1rem;
+                        "
+                    >
                 </div>
 
                 <div class="d-grid mt-4">
-                    <button type="submit" class="btn" style="background: #e83e8c; color: white; border-radius: 1rem; font-weight: bold;">
+                    <button 
+                        type="submit" 
+                        class="btn" 
+                        style="
+                            background-color: #1db954;
+                            color: #fff;
+                            border: none;
+                            border-radius: 0.75rem;
+                            font-weight: 600;
+                            padding: 0.6rem 1.5rem;
+                            transition: background-color 0.3s ease;
+                        "
+                        onmouseover="this.style.backgroundColor='#17a94a';"
+                        onmouseout="this.style.backgroundColor='#1db954';"
+                    >
                         💗 Register
                     </button>
                 </div>
             </form>
 
-            <p class="mt-4 text-center" style="color: #c71585;">
-                Already have an account? <a href="{{ route('Login.page') }}" style="color: #e83e8c; font-weight: 500;">Login here</a>
+            <p class="mt-4 text-center" style="color: #ccc;">
+                Already have an account? 
+                <a href="{{ route('Login.page') }}" style="color: #1db954;">Login here</a>
             </p>
         </div>
     </div>

@@ -9,8 +9,8 @@
         </div>
     </div>
     
-    <button onclick="playMelody()" class="btn btn-girly">▶️ Play Melody</button>
-    <a href="{{ route('melody.export', $melody->id) }}" class="btn btn-girly" >
+    <button onclick="playMelody()" class="btn btn-modern">▶️ Play Melody</button>
+    <a href="{{ route('melody.export', $melody->id) }}" class="btn btn-modern" >
         Download as MusicXML
     </a>
     <script src="https://unpkg.com/tone/build/Tone.js"></script>

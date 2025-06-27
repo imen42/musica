@@ -29,29 +29,80 @@
     </div>
 
     <style>
-        .melody-box {
-            background: white;
+        body {
+            background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+        }
+    
+        h1, h2 {
+            color: #1db954;
+            font-weight: 700;
+        }
+    
+        .container {
+            max-width: 1000px;
+            background: rgba(28, 28, 28, 0.95);
+            padding: 2rem;
             border-radius: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+        }
+    
+        .melody-box {
+            background: #181818;
+            border-radius: 0.75rem;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
             padding: 1.5rem;
             margin-bottom: 2rem;
+            border: 1px solid #2a2a2a;
+            transition: transform 0.2s ease;
         }
+    
+        .melody-box:hover {
+            transform: translateY(-3px);
+        }
+    
         .score {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #e83e8c;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1db954;
+            text-align: center;
+            margin: 0.5rem 0;
         }
+    
         .notes {
+            background: rgba(40, 40, 40, 0.85);
+            border-radius: 0.5rem;
+            padding: 1rem;
             font-family: monospace;
-            font-size: 1.25rem;
-            letter-spacing: 0.1rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.08rem;
             margin-top: 0.5rem;
-            user-select: text;
             white-space: pre-wrap;
             word-wrap: break-word;
+            color: #ccc;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        h1, h2 {
-            color: #d63384;
+    
+        .btn-girly {
+            background-color: #1db954;
+            color: #fff;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+    
+        .btn-girly:hover {
+            background-color: #17a94a;
+            box-shadow: 0 0 10px #1db954aa;
+            color: #fff;
+        }
+    
+        .text-center.mt-4 {
+            margin-top: 3rem !important;
         }
     </style>
+    
 </x-layout>
