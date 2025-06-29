@@ -9,6 +9,8 @@ use App\Http\Controllers\AnonymousNoteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MusicXmlController;
 use App\Http\Controllers\MelodyGeneratorController;
+use App\Http\Controllers\MozartDiceController;
+use App\Http\Controllers\ScaleBuilderController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
     //register && login && logout
@@ -66,3 +68,6 @@ Route::get('/melody/{id}/export', [MelodyGeneratorController::class, 'exportToMu
 Route::get('/melody/compare/{id1}/{id2}', [MelodyGeneratorController::class, 'compareMelodies'])
     ->middleware('auth')
     ->name('melody.compare.ids');
+    Route::get('/mozart-dice', [MozartDiceController::class, 'generate'])->name('mozart.dice');
+    Route::get('/scale-builder', [ScaleBuilderController::class, 'showForm'])->name('scale.builder.form');
+    Route::post('/scale-builder', [ScaleBuilderController::class, 'generateScale'])->name('scale.builder.generate');
