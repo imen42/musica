@@ -14,7 +14,7 @@ class MelodyGeneratorController extends Controller
 {
     public function generateMelody(MarkovMelodyGenerator $generator)
     {
-        $melody = $generator->generate(16, 'C'); // length and starting note
+        $melody = $generator->generate(16, 'C'); 
         $melodyString = implode(' ', $melody);
     
         $melodyModel = new Melody();
